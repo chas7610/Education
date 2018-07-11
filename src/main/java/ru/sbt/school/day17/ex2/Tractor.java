@@ -1,43 +1,78 @@
 package ru.sbt.school.day17.ex2;
 
-public class Tractor {
+public class Tractor implements Moveable{
 
-    int[] position = new int[]{0, 0};
-    int[] field = new int[]{5, 5};
-    Orientation orientation = Orientation.NORTH;
+    private int[] position;
+    private Field field;
+    Orientation orientation;
 
-    public void move(String command) {
-        if (command == "F") {
-            moveForwards();
-        } else if (command == "T") {
-            turnClockwise();
+    public Tractor() {
+        position = new int[]{0, 0};
+        orientation = Orientation.NORTH;
+        field = new Field();
+    }
+
+    public Tractor(int[] position, Field field, Orientation orientation) {
+        this.position = position;
+        this.field = field;
+        this.orientation = orientation;
+    }
+
+    public void move(Command command) {
+        switch (command){
+            case FORWARD:{
+                moveForwards();
+            break;
+            }
+            case TURN:{
+                turnClockwise();
+                break;
+            }
         }
     }
 
     public void moveForwards() {
-        if (orientation == Orientation.NORTH) {
-            position = new int[]{position[0], position[1] + 1};
-        } else if (orientation == Orientation.EAST) {
-            position = new int[]{position[0] + 1, position[1]};
-        } else if (orientation == Orientation.SOUTH) {
-            position = new int[]{position[0], position[1] - 1};
-        } else if (orientation == Orientation.WEST) {
-            position = new int[]{position[0] - 1, position[1]};
+        switch (orientation){
+            case NORTH:{
+                position = new int[]{position[0], position[1] + 1};
+                break;
+            }
+            case EAST:{
+                position = new int[]{position[0] + 1, position[1]};
+                break;
+            }
+            case WEST:{
+                position = new int[]{position[0] - 1, position[1]};
+                break;
+            }
+            case SOUTH:{
+                position = new int[]{position[0], position[1] - 1};
+                break;
+            }
         }
-        if (position[0] > field[0] || position[1] > field[1]) {
+        if (position[0] > field.getField()[0] || position[1] > field.getField()[1]) {
             throw new TractorInDitchException();
         }
     }
 
     public void turnClockwise() {
-        if (orientation == Orientation.NORTH) {
-            orientation = Orientation.EAST;
-        } else if (orientation == Orientation.EAST) {
-            orientation = Orientation.SOUTH;
-        } else if (orientation == Orientation.SOUTH) {
-            orientation = Orientation.WEST;
-        } else if (orientation == Orientation.WEST) {
-            orientation = Orientation.NORTH;
+        switch (orientation){
+            case NORTH:{
+                orientation = Orientation.EAST;
+                break;
+            }
+            case EAST:{
+                orientation = Orientation.SOUTH;
+                break;
+            }
+            case SOUTH:{
+                orientation = Orientation.WEST;
+                break;
+            }
+            case WEST:{
+                orientation = Orientation.NORTH;
+                break;
+            }
         }
     }
 
