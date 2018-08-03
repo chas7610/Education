@@ -17,23 +17,27 @@ public class Main {
         DataSource dataSource = ctx.getBean(DataSource.class);
         recipeDao.setDataSource(dataSource);
 
-        List<CookingRecipe> list1 = recipeDao.getbyIngredient("pepper");
-        list1.stream().forEach(System.out::println);
-        System.out.println("");
+//        List<CookingRecipe> list1 = recipeDao.getbyIngredient("pepper");
+//        list1.stream().forEach(System.out::println);
+//        System.out.println("");
+//
+//        List<CookingRecipe> list =  recipeDao.getAll();
+//        list.stream().forEach(System.out::println);
+//        System.out.println("");
+//
+//        CookingRecipe recipe = recipeDao.getByName("salad");
+//        System.out.println(recipe);
+//
+//        System.out.println("");
+//
+//        System.out.println(recipeDao.deleteById(5));
+        String lines = "salad, potatoes:250; pineapple:100;chicken:50;mayonnaise:10,I";
+
+        System.out.println(recipeDao.insertRow(lines));
 
         List<CookingRecipe> list =  recipeDao.getAll();
         list.stream().forEach(System.out::println);
         System.out.println("");
-
-        CookingRecipe recipe = recipeDao.getByName("salad");
-        System.out.println(recipe);
-
-        System.out.println("");
-
-        System.out.println(recipeDao.deleteById(5));
-        String lines = "salad, potatoes:250; pineapple:100;chicken:50;mayonnaise:10,I";
-
-        System.out.println(recipeDao.insertRow(lines));
 
 
 

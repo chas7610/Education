@@ -27,9 +27,6 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "{" +
-                "'" + name + '\'' +
-                ", " + weight +
-                '}';
+        return name + ":" + weight +";";
     }
 }
