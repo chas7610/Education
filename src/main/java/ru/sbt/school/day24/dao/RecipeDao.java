@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecipeDao {
     private DataSource dataSource;
@@ -56,7 +57,7 @@ public class RecipeDao {
                 preparedStatement.setString(1, '%'+ ingredient + '%');
             }
         }, new RecipeRowMapper());
-        return list==null && list.isEmpty()? null: list;
+        return list==null || list.isEmpty()? null: list;
     }
 
     public String deleteByName(String name){
@@ -89,7 +90,7 @@ public class RecipeDao {
             @Override
             public void setValues(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, cookingRecipe.getName());
-                preparedStatement.setString(2, cookingRecipe.getIngredientsList().toString());
+                preparedStatement.setString(2,cookingRecipe.getIngredientsList().stream().map(i ->(i.toString()).trim()).collect(Collectors.joining("")));
                 preparedStatement.setString(3, cookingRecipe.getAuthor());
             }});
 
