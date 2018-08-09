@@ -54,6 +54,8 @@ public class RecipeDaoImpl implements RecipeDao {
     @Override
     public String deleteById(int id) {
         CookingRecipe cookingRecipe = getById(id);
+        if (cookingRecipe == null)
+            return "no row with id " + id;
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
         session.delete(cookingRecipe);
